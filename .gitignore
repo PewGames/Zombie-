@@ -1,0 +1,17 @@
+# Unreal Engine
+Binaries/
+DerivedDataCache/
+Intermediate/
+Saved/
+.vs/
+
+# Visual Studio
+.vscode/
+*.sln
+*.suo
+*.user
+*.userprefs
+
+# Build files
+*.pdb
+*.obj
