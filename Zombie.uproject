@@ -3,6 +3,16 @@
 	"EngineAssociation": "{4DA9E28C-4E6A-FBC4-1737-E5A99540CE3D}",
 	"Category": "",
 	"Description": "",
+	"Modules": [
+		{
+			"Name": "Zombie",
+			"Type": "Runtime",
+			"LoadingPhase": "Default",
+			"AdditionalDependencies": [
+				"Engine"
+			]
+		}
+	],
 	"Plugins": [
 		{
 			"Name": "ModelingToolsEditorMode",
