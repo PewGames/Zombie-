@@ -15,7 +15,7 @@ AZombieGameManager::AZombieGameManager()
 void AZombieGameManager::BeginPlay()
 {
 	Super::BeginPlay();
-	
+	UE_LOG(LogTemp, Display, TEXT("Zombie Game Started!"));
 }
 
 // Called every frame
