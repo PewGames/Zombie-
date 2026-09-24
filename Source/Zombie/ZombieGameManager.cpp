@@ -2,6 +2,7 @@
 
 
 #include "ZombieGameManager.h"
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values
 AZombieGameManager::AZombieGameManager()
@@ -12,6 +13,7 @@ AZombieGameManager::AZombieGameManager()
 }
 void AZombieGameManager::StartGame()
 {
+	UGameplayStatics::OpenLevel(this, FName ("GameLevel"));
 	UE_LOG(LogTemp, Display, TEXT("Start Game Called!"));
 }
 
