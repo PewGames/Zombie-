@@ -2,6 +2,7 @@
 
 
 #include "PlayerCharacter.h"
+#include "EnhancedInputSubsystems.h"
 
 // Sets default values
 APlayerCharacter::APlayerCharacter()
@@ -15,14 +16,18 @@ APlayerCharacter::APlayerCharacter()
 void APlayerCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
+	APlayerController* playerController = Cast<APlayerController>(GetController());
+	UEnhancedInputLocalPlayerSubsystem* inputSubsystem =
+    ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(
+        playerController->GetLocalPlayer()
+    );
 }
 
 // Called every frame
 void APlayerCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
 }
 
 // Called to bind functionality to input
