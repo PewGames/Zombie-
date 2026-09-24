@@ -10,6 +10,10 @@ AZombieGameManager::AZombieGameManager()
 	PrimaryActorTick.bCanEverTick = true;
 
 }
+void AZombieGameManager::StartGame()
+{
+	UE_LOG(LogTemp, Display, TEXT("Start Game Called!"));
+}
 
 // Called when the game starts or when spawned
 void AZombieGameManager::BeginPlay()
