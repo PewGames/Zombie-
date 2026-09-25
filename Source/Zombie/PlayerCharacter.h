@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "InputMappingContext.h"
 #include "PlayerCharacter.generated.h"
 
 UCLASS()
@@ -14,6 +15,8 @@ class ZOMBIE_API APlayerCharacter : public ACharacter
 public:
 	// Sets default values for this character's properties
 	APlayerCharacter();
+	UPROPERTY(EditDefaultsOnly, Category = "input")
+	UInputMappingContext* playerMappingContext;
 
 protected:
 	// Called when the game starts or when spawned
