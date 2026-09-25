@@ -3,6 +3,7 @@
 
 #include "PlayerCharacter.h"
 #include "EnhancedInputSubsystems.h"
+#include "EnhancedInputComponent.h"
 
 // Sets default values
 APlayerCharacter::APlayerCharacter()
@@ -22,6 +23,7 @@ void APlayerCharacter::BeginPlay()
     ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(
         playerController->GetLocalPlayer()
     );
+	inputSubsystem->AddMappingContext(playerMappingContext, 0);
 }
 
 // Called every frame
@@ -35,5 +37,6 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
+	UEnhancedInputComponent* enhancedInputComponent = Cast<UEnhancedInputComponent>(PlayerInputComponent);
 }
 

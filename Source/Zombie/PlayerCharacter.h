@@ -5,6 +5,8 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "InputMappingContext.h"
+#include "InputAction.h"
+#include "InputActionValue.h"
 #include "PlayerCharacter.generated.h"
 
 UCLASS()
@@ -17,6 +19,8 @@ public:
 	APlayerCharacter();
 	UPROPERTY(EditDefaultsOnly, Category = "input")
 	UInputMappingContext* playerMappingContext;
+	UPROPERTY(EditDefaultsOnly, Category = "input")
+	UInputAction* playerMoveAction;
 
 protected:
 	// Called when the game starts or when spawned
@@ -29,4 +33,5 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+	void Move(const FInputActionValue& Value);
 };
