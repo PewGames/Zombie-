@@ -38,5 +38,19 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
 	UEnhancedInputComponent* enhancedInputComponent = Cast<UEnhancedInputComponent>(PlayerInputComponent);
+	enhancedInputComponent->BindAction(
+		playerMoveAction,
+		ETriggerEvent::Triggered,
+		this,
+		&APlayerCharacter::Move
+	);
+}
+
+// My Player Move Function
+void APlayerCharacter::Move(const FInputActionValue& Value)
+{
+	FVector2D movementVector = Value.Get<FVector2D>();
+	AddMovementInput(GetActorForwardVector(), movementVector.Y);
+	AddMovementInput(GetActorRightVector(), movementVector.X);
 }
 
