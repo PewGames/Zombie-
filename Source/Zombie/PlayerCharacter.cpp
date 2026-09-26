@@ -19,10 +19,25 @@ void APlayerCharacter::BeginPlay()
 	Super::BeginPlay();
 
 	APlayerController* playerController = Cast<APlayerController>(GetController());
+	if (!playerController)
+	{
+		return;
+	}
+
+	ULocalPlayer* localPlayer = playerController->GetLocalPlayer();
+	if (!localPlayer)
+	{
+		return;
+	}
+
 	UEnhancedInputLocalPlayerSubsystem* inputSubsystem =
     ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(
-        playerController->GetLocalPlayer()
+        localPlayer
     );
+	if (!inputSubsystem)
+	{
+		return;
+	}
 	inputSubsystem->AddMappingContext(playerMappingContext, 0);
 }
 
@@ -38,6 +53,10 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
 	UEnhancedInputComponent* enhancedInputComponent = Cast<UEnhancedInputComponent>(PlayerInputComponent);
+	if (!enhancedInputComponent)
+	{
+		return;
+	}
 	enhancedInputComponent->BindAction(
 		playerMoveAction,
 		ETriggerEvent::Triggered,
