@@ -4,6 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "Camera/CameraComponent.h"
+#include "GameFramework/SpringArmComponent.h"
 #include "InputMappingContext.h"
 #include "InputAction.h"
 #include "InputActionValue.h"
@@ -26,6 +28,8 @@ public:
 	UPROPERTY(EditDefaultsOnly, Category = "input")
 	UInputMappingContext* playerMappingContext;
 
+
+	//Creates input variables
 	UPROPERTY(EditDefaultsOnly, Category = "input")
 	UInputAction* playerMoveForwardAction;
 	UPROPERTY(EditDefaultsOnly, Category = "input")
@@ -34,6 +38,16 @@ public:
 	UInputAction* playerMoveLeftAction;
 	UPROPERTY(EditDefaultsOnly, Category = "input")
 	UInputAction* playerMoveRightAction;
+	// Camera components
+	UPROPERTY(VisibleAnywhere, Category = "camera")
+	USpringArmComponent* cameraBoom;
+	UPROPERTY(VisibleAnywhere, Category = "camera")
+	UCameraComponent* playerCamera;
+	UPROPERTY(EditDefaultsOnly, Category = "input")
+	UInputAction* playerLookXAction;
+	UPROPERTY(EditDefaultsOnly, Category = "input")
+	UInputAction* playerLookYAction;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -56,4 +70,9 @@ public:
 	void MoveBackwardReleased();
 	void MoveLeftReleased();
 	void MoveRightReleased();
+
+	//Called to check when player looks X & Y
+	void LookX(const FInputActionValue& Val);
+	void LookY(const FInputActionValue& Val);
+
 };

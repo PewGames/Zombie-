@@ -2,6 +2,8 @@
 
 
 #include "PlayerCharacter.h"
+#include "GameFramework/SpringArmComponent.h"
+#include "Components/CapsuleComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "EnhancedInputComponent.h"
 
@@ -10,12 +12,18 @@ APlayerCharacter::APlayerCharacter()
 {
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-	
+
 	isMovingForward = false;
 	isMovingBackward = false;
 	isMovingLeft = false;
 	isMovingRight = false;
-	
+
+	cameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("CameraBoom"));
+	cameraBoom->TargetArmLength = 300.00;
+	cameraBoom->bUsePawnControlRotation = true;
+	cameraBoom->AttachToComponent(GetCapsuleComponent(), FAttachmentTransformRules::KeepRelativeTransform, NAME_None);
+	playerCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("PlayerCamera"));
+	playerCamera->AttachToComponent(cameraBoom, FAttachmentTransformRules::KeepRelativeTransform, NAME_None);
 }
 
 // Called when the game starts or when spawned
@@ -44,6 +52,7 @@ void APlayerCharacter::BeginPlay()
 		return;
 	}
 	inputSubsystem->AddMappingContext(playerMappingContext, 0);
+
 }
 
 // Called every frame
@@ -90,6 +99,9 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 	enhancedInputComponent->BindAction(playerMoveBackwardAction, ETriggerEvent::Completed, this, &APlayerCharacter::MoveBackwardReleased);
 	enhancedInputComponent->BindAction(playerMoveLeftAction, ETriggerEvent::Completed, this, &APlayerCharacter::MoveLeftReleased);
 	enhancedInputComponent->BindAction(playerMoveRightAction, ETriggerEvent::Completed, this, &APlayerCharacter::MoveRightReleased);
+
+	enhancedInputComponent->BindAction(playerLookXAction, ETriggerEvent::Triggered, this, &APlayerCharacter::LookX);
+	enhancedInputComponent->BindAction(playerLookYAction, ETriggerEvent::Triggered, this, &APlayerCharacter::LookY);
 }
 
 //Track triggered directions for movement state.
@@ -126,4 +138,14 @@ void APlayerCharacter::MoveLeftReleased()
 void APlayerCharacter::MoveRightReleased()
 {
 	isMovingRight = false;
+}
+
+//Tracks player look direction.
+void APlayerCharacter::LookX(const FInputActionValue& Val)
+{
+	AddControllerYawInput(Val.Get<float>());
+}
+void APlayerCharacter::LookY(const FInputActionValue& Val)
+{
+	AddControllerPitchInput(-Val.Get<float>());
 }
