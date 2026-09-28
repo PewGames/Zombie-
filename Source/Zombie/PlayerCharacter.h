@@ -38,6 +38,9 @@ public:
 	UInputAction* playerMoveLeftAction;
 	UPROPERTY(EditDefaultsOnly, Category = "input")
 	UInputAction* playerMoveRightAction;
+	// Pause component
+	UPROPERTY(EditDefaultsOnly, Category = "input")
+	UInputAction* playerPauseAction;
 	// Camera components
 	UPROPERTY(VisibleAnywhere, Category = "camera")
 	USpringArmComponent* cameraBoom;
@@ -59,7 +62,7 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-	//Called to check when binds are released
+	//Called to check when binds are triggered
 	void MoveForward();
 	void MoveBackward();
 	void MoveLeft();
@@ -70,6 +73,9 @@ public:
 	void MoveBackwardReleased();
 	void MoveLeftReleased();
 	void MoveRightReleased();
+
+	//Called to check when pause bind is triggered
+	void PauseGame();
 
 	//Called to check when player looks X & Y
 	void LookX(const FInputActionValue& Val);

@@ -6,6 +6,7 @@
 #include "Components/CapsuleComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "EnhancedInputComponent.h"
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values
 APlayerCharacter::APlayerCharacter()
@@ -100,6 +101,10 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 	enhancedInputComponent->BindAction(playerMoveLeftAction, ETriggerEvent::Completed, this, &APlayerCharacter::MoveLeftReleased);
 	enhancedInputComponent->BindAction(playerMoveRightAction, ETriggerEvent::Completed, this, &APlayerCharacter::MoveRightReleased);
 
+	// Bind pause action when pressed.
+	enhancedInputComponent->BindAction(playerPauseAction, ETriggerEvent::Started, this, &APlayerCharacter::PauseGame);
+
+	// Bind look action for mouse input.
 	enhancedInputComponent->BindAction(playerLookXAction, ETriggerEvent::Triggered, this, &APlayerCharacter::LookX);
 	enhancedInputComponent->BindAction(playerLookYAction, ETriggerEvent::Triggered, this, &APlayerCharacter::LookY);
 }
@@ -138,6 +143,12 @@ void APlayerCharacter::MoveLeftReleased()
 void APlayerCharacter::MoveRightReleased()
 {
 	isMovingRight = false;
+}
+
+//Pauses game
+void APlayerCharacter::PauseGame()
+{
+	UGameplayStatics::SetGamePaused(this,true);
 }
 
 //Tracks player look direction.
