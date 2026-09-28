@@ -149,6 +149,8 @@ void APlayerCharacter::MoveRightReleased()
 void APlayerCharacter::PauseGame()
 {
 	UGameplayStatics::SetGamePaused(this,true);
+	UUserWidget* pauseMenu = CreateWidget<UUserWidget>(GetWorld(), pauseMenuClass);
+	pauseMenu->AddToViewport(0);
 }
 
 //Tracks player look direction.

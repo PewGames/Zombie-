@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "Camera/CameraComponent.h"
+#include "Blueprint/UserWidget.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "InputMappingContext.h"
 #include "InputAction.h"
@@ -41,6 +42,8 @@ public:
 	// Pause component
 	UPROPERTY(EditDefaultsOnly, Category = "input")
 	UInputAction* playerPauseAction;
+	UPROPERTY(EditDefaultsOnly, Category = "UI")
+	TSubclassOf<UUserWidget> pauseMenuClass;
 	// Camera components
 	UPROPERTY(VisibleAnywhere, Category = "camera")
 	USpringArmComponent* cameraBoom;
