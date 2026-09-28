@@ -44,6 +44,8 @@ public:
 	UInputAction* playerPauseAction;
 	UPROPERTY(EditDefaultsOnly, Category = "UI")
 	TSubclassOf<UUserWidget> pauseMenuClass;
+	UPROPERTY()
+	UUserWidget* pauseMenu;
 	// Camera components
 	UPROPERTY(VisibleAnywhere, Category = "camera")
 	USpringArmComponent* cameraBoom;

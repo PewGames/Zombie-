@@ -148,11 +148,19 @@ void APlayerCharacter::MoveRightReleased()
 //Pauses game
 void APlayerCharacter::PauseGame()
 {
-	UUserWidget* pauseMenu = CreateWidget<UUserWidget>(GetWorld(), pauseMenuClass);
-	UGameplayStatics::SetGamePaused(this, true);
-	if (pauseMenu) 
+	if (pauseMenu)
 	{
-		pauseMenu->AddToViewport(0);
+		pauseMenu->RemoveFromViewport();
+		pauseMenu = nullptr;
+	}
+	else
+	{
+		pauseMenu = CreateWidget<UUserWidget>(GetWorld(), pauseMenuClass);
+		if (!pauseMenu)
+		{
+			return;
+		}
+			pauseMenu->AddToViewport(0);
 	}
 }
 
